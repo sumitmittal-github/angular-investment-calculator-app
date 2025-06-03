@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, signal } from '@angular/core';
+import { Component, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvestmentResults } from '../investment-results/investment-results.model';
 
@@ -11,8 +11,7 @@ import { InvestmentResults } from '../investment-results/investment-results.mode
 })
 export class UserInputComponent implements OnInit {
 
-  @Output()
-  investmentResultsEvent = new EventEmitter<InvestmentResults[]>();
+  investmentResultsEvent = output<InvestmentResults[]>();
   
   enteredInitialInvestment = signal<number>(100000);
   enteredAnnualInvestment = signal<number>(12000);
