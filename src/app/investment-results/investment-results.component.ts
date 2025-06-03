@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { InvestmentResults } from './investment-results.model';
 import { CurrencyPipe } from '@angular/common';
 
@@ -10,6 +10,9 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class InvestmentResultsComponent {
 
+  @Input()
   investmentResults?: InvestmentResults[];
+
+  
 
 }

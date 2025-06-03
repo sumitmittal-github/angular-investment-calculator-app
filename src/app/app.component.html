@@ -1,5 +1,5 @@
 <app-header/>
 
-<app-user-input/>
+<app-user-input (investmentResultsEvent)="onSubmitUserInput($event)"/>
 
-<app-investment-results/>
+<app-investment-results [investmentResults]="investmentResults"/>
