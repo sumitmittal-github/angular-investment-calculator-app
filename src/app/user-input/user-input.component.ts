@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvestmentResults } from '../investment-results/investment-results.model';
 
@@ -14,17 +14,17 @@ export class UserInputComponent implements OnInit {
   @Output()
   investmentResultsEvent = new EventEmitter<InvestmentResults[]>();
   
-  enteredInitialInvestment: number = 100000;
-  enteredAnnualInvestment: number = 12000;
-  enteredExpectedReturn: number = 15;
-  enteredDuration: number = 15;
+  enteredInitialInvestment = signal<number>(100000);
+  enteredAnnualInvestment = signal<number>(12000);
+  enteredExpectedReturn = signal<number>(15);
+  enteredDuration = signal<number>(15);
 
   ngOnInit(): void {
     this.onSubmit();
   }
 
   onSubmit(){
-    const investmentResults : InvestmentResults[] = this.calculateInvestmentResults(this.enteredInitialInvestment, this.enteredAnnualInvestment, this.enteredExpectedReturn, this.enteredDuration);
+    const investmentResults : InvestmentResults[] = this.calculateInvestmentResults(this.enteredInitialInvestment(), this.enteredAnnualInvestment(), this.enteredExpectedReturn(), this.enteredDuration());
     this.investmentResultsEvent.emit(investmentResults);
   }
 
