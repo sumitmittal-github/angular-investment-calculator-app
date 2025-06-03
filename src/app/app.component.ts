@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { HeaderComponent } from "./header/header.component";
 import { UserInputComponent } from "./user-input/user-input.component";
 import { InvestmentResultsComponent } from "./investment-results/investment-results.component";
@@ -12,10 +12,11 @@ import { InvestmentResults } from './investment-results/investment-results.model
 })
 export class AppComponent {
 
-  investmentResults: InvestmentResults[] = [];
+  investmentResults = signal<InvestmentResults[] | undefined>(undefined);
 
   onSubmitUserInput($event: InvestmentResults[]) {
-    this.investmentResults = $event;
+    this.investmentResults.set($event);
+    //this.investmentResults = $event;
   }
 
   
