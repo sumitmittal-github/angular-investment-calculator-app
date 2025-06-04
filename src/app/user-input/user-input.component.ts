@@ -1,6 +1,7 @@
-import { Component, OnInit, output, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InvestmentResults } from '../investment-results/investment-results.model';
+import { InvestmentService } from '../investment.service';
+import { InvestmentInput } from '../investment-input.model';
 
 @Component({
   selector: 'app-user-input',
@@ -11,8 +12,8 @@ import { InvestmentResults } from '../investment-results/investment-results.mode
 })
 export class UserInputComponent implements OnInit {
 
-  investmentResultsEvent = output<InvestmentResults[]>();
-  
+  investmentService = inject(InvestmentService);
+
   enteredInitialInvestment = signal<number>(100000);
   enteredAnnualInvestment = signal<number>(12000);
   enteredExpectedReturn = signal<number>(15);
@@ -23,28 +24,13 @@ export class UserInputComponent implements OnInit {
   }
 
   onSubmit(){
-    const investmentResults : InvestmentResults[] = this.calculateInvestmentResults(this.enteredInitialInvestment(), this.enteredAnnualInvestment(), this.enteredExpectedReturn(), this.enteredDuration());
-    this.investmentResultsEvent.emit(investmentResults);
-  }
-
-  calculateInvestmentResults(initialInvestment: number, annualInvestment: number, expectedReturn: number, duration: number) {
-    const investmentResults = [];
-    let investmentValue = initialInvestment;
-    for (let i = 0; i < duration; i++) {
-      const year = i + 1;
-      const interestEarnedInYear = investmentValue * (expectedReturn / 100);
-      investmentValue += interestEarnedInYear + annualInvestment;
-      const totalInterest = investmentValue - annualInvestment * year - initialInvestment;
-      investmentResults.push({
-        year: year,
-        valueEndOfYear: investmentValue,
-        interest: interestEarnedInYear,
-        totalInterest: totalInterest,
-        totalAmountInvested: initialInvestment + annualInvestment * year//,
-        //annualInvestment: annualInvestment,
-      });
-    }
-    return investmentResults;
+    const investmentInput: InvestmentInput = new InvestmentInput(
+      this.enteredInitialInvestment(),
+      this.enteredAnnualInvestment(),
+      this.enteredExpectedReturn(),
+      this.enteredDuration()
+    );
+    this.investmentService.calculateInvestmentResults(investmentInput);
   }
 
 

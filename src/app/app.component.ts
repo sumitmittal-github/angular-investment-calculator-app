@@ -12,12 +12,5 @@ import { InvestmentResults } from './investment-results/investment-results.model
 })
 export class AppComponent {
 
-  investmentResults = signal<InvestmentResults[] | undefined>(undefined);
 
-  onSubmitUserInput($event: InvestmentResults[]) {
-    this.investmentResults.set($event);
-    //this.investmentResults = $event;
-  }
-
-  
 }
