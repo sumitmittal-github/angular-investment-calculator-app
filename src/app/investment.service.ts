@@ -7,7 +7,7 @@ export class InvestmentService {
 
     investmentResults = signal<InvestmentResults[] | undefined>(undefined)
 
-    calculateInvestmentResults(investmentInput: InvestmentInput) : void{
+    calculateInvestmentResults(investmentInput: InvestmentInput) : void {
         const tempResults : InvestmentResults[] = [];
         let investmentValue = investmentInput.initialInvestment;
         for (let i = 0; i < investmentInput.duration; i++) {

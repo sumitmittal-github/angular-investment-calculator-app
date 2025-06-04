@@ -1,4 +1,4 @@
-import { Component, inject, input, } from '@angular/core';
+import { Component, inject, Signal, } from '@angular/core';
 import { InvestmentResults } from './investment-results.model';
 import { CurrencyPipe } from '@angular/common';
 import { InvestmentService } from '../investment.service';
@@ -13,7 +13,7 @@ export class InvestmentResultsComponent {
 
   investmentService = inject(InvestmentService);
 
-  get results() {
+  get results() : Signal<InvestmentResults[] | undefined> {
     return this.investmentService.investmentResults;
   }
 

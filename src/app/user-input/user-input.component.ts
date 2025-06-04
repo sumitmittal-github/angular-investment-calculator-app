@@ -23,7 +23,7 @@ export class UserInputComponent implements OnInit {
     this.onSubmit();
   }
 
-  onSubmit(){
+  onSubmit() : void {
     const investmentInput: InvestmentInput = new InvestmentInput(
       this.enteredInitialInvestment(),
       this.enteredAnnualInvestment(),
